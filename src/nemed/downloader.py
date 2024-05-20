@@ -161,7 +161,8 @@ def download_plant_emissions_factors(start_date, end_date, cache):
                                     select_columns=["GENSETID", "CO2E_EMISSIONS_FACTOR", "CO2E_ENERGY_SOURCE", \
                                         'CO2E_DATA_SOURCE'],
                                     date_filter=None,
-                                    fformat="feather",
+                                    fformat="parquet",
+                                    keep_csv=False
                                     )
     df = pd.concat(df)
     df['file_year'] = df['file_year'].astype(int)
@@ -217,7 +218,8 @@ def download_genset_map(cache, asof_date=None):
                                     raw_data_location=cache,
                                     select_columns=["EFFECTIVEDATE", "DUID", "GENSETID", "LASTCHANGED"],
                                     date_filter=None,
-                                    fformat="feather",
+                                    fformat="parquet",
+                                    keep_csv=False
                                     )
     df = pd.concat(df)
     df = df.drop(['file_year','file_month', 'LASTCHANGED'], axis=1)
@@ -273,7 +275,8 @@ def download_dudetailsummary(cache, asof_date=None):
                                     raw_data_location=cache,
                                     select_columns=["START_DATE", "DUID", "DISPATCHTYPE", "REGIONID", "LASTCHANGED"],
                                     date_filter=None,
-                                    fformat="feather",
+                                    fformat="parquet",
+                                    keep_csv=False
                                     )
     df = pd.concat(df)
     df = df.drop(['file_year','file_month', 'LASTCHANGED'], axis=1)
@@ -549,7 +552,8 @@ def download_unit_dispatch(start_time, end_time, cache, source_initialmw=False, 
             table_name="DISPATCHLOAD",
             raw_data_location=cache,
             select_columns=["SETTLEMENTDATE", "DUID", "INITIALMW", "INTERVENTION"],
-            fformat="feather",
+            fformat="parquet",
+            keep_csv=False
         )
         disp_load["Time"] = disp_load["SETTLEMENTDATE"] - timedelta(minutes=DISPATCH_INT_MIN)
 
@@ -564,7 +568,8 @@ def download_unit_dispatch(start_time, end_time, cache, source_initialmw=False, 
             table_name="DISPATCH_UNIT_SCADA",
             raw_data_location=cache,
             select_columns=["SETTLEMENTDATE", "DUID", "SCADAVALUE"],
-            fformat="feather",
+            fformat="parquet",
+            keep_csv=False
         )
         disp_scada["Time"] = disp_scada["SETTLEMENTDATE"] - timedelta(minutes=DISPATCH_INT_MIN)
 

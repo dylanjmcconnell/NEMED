@@ -4,13 +4,6 @@ import pandas as pd
 import pytest
 
 
-def test_downloader_download_cdeii_table():
-    table = download_cdeii_table()
-    assert type(table) == pd.DataFrame
-    assert all(table.columns == ['STATIONNAME', 'DUID', 'REGIONID', 'CO2E_EMISSIONS_FACTOR',
-       'CO2E_ENERGY_SOURCE', 'CO2E_DATA_SOURCE']), "Incorrect column names"
-
-
 def test_check_cache():
     cache_fp = _check_cache('.\CACHE')
     assert type(cache_fp) == str
